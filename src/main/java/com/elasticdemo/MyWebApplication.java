@@ -21,7 +21,7 @@ public class MyWebApplication implements CommandLineRunner {
         String directoryPath = "/Users/prateek/DockerCompose/";
         String indexName = "files";
 
-        //fileContentIndexer.indexFiles(directoryPath, indexName);
+       // fileContentIndexer.indexFiles(directoryPath, indexName);
     }
 
 }

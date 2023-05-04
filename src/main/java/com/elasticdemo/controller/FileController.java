@@ -52,7 +52,7 @@ public class FileController {
 
     @PostMapping("/search")
     public List<FileModel> searchResumes(@RequestBody SearchRequest searchRequest) throws IOException {
-        return elasticSearchService.searchDocuments("files", searchRequest.getKeyword());
+        return elasticSearchService.searchDocuments("files", searchRequest);
 
     }
 

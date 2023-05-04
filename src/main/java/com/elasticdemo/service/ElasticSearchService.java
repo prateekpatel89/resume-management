@@ -41,18 +41,25 @@ public class ElasticSearchService {
     @Autowired
     private RestHighLevelClient client;
 
-    public List<FileModel> searchDocuments(String indexName, String searchQuery) throws IOException {
+    public List<FileModel> searchDocuments(String indexName, com.elasticdemo.model.SearchRequest input) throws IOException {
 
 
         SearchRequest searchRequest = new SearchRequest(indexName);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        String query = searchQuery;
-        if(StringUtils.hasText(searchQuery)){
-            String result = findResumeKeyWords(searchQuery);
+        String query = input.getKeyword();
+        if(StringUtils.hasText(query)){
+            String result = findResumeKeyWords(query);
             if(StringUtils.hasText(result)){
                 query=result;
             }
         }
+        if(StringUtils.hasText(query) && StringUtils.hasText(input.getBusp())){
+            query="("+query + ") AND " + input.getBusp();
+        }else if(StringUtils.hasText(input.getBusp())){
+            query = input.getBusp();
+        }
+
+        System.out.println("Search query:"+ query);
 
 
         // build the search query
