@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: com.elasticdemo.HelloControllerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 11.891 s <<< FAILURE! - in com.elasticdemo.HelloControllerTest
+hello_ok  Time elapsed: 1.407 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+expected: "Hello World, Spring Boot!"
+but was : "{"timestamp":"2023-05-03T15:47:14.539+00:00","status":404,"error":"Not Found","path":"/"}"
+	at com.elasticdemo.HelloControllerTest.hello_ok(HelloControllerTest.java:21)
+

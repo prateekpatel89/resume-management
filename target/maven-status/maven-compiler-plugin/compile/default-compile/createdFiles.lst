@@ -1,0 +1,13 @@
+com/elasticdemo/config/FileConfig.class
+com/elasticdemo/config/ElasticSearchConfig.class
+com/elasticdemo/service/ElasticSearchService.class
+com/elasticdemo/model/FileContent.class
+com/elasticdemo/service/ElasticSearchService$1.class
+com/elasticdemo/service/FileStorageService.class
+com/elasticdemo/service/FileContentIndexer.class
+com/elasticdemo/model/FileModel.class
+com/elasticdemo/controller/FileController.class
+com/elasticdemo/model/UploadFileResponse.class
+com/elasticdemo/model/SearchRequest.class
+com/elasticdemo/repository/FileRepository.class
+com/elasticdemo/MyWebApplication.class

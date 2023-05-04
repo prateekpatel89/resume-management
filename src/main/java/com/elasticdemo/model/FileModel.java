@@ -13,7 +13,15 @@ public class FileModel {
 
     private String name;
 
+    private String businessProcess;
 
+    public String getBusinessProcess() {
+        return businessProcess;
+    }
+
+    public void setBusinessProcess(String businessProcess) {
+        this.businessProcess = businessProcess;
+    }
 
     private String downloadUrl;
 

@@ -1,0 +1,12 @@
+/Users/prateek/workspace/spring-boot/resume-management/src/main/java/com/elasticdemo/model/FileModel.java
+/Users/prateek/workspace/spring-boot/resume-management/src/main/java/com/elasticdemo/service/FileStorageService.java
+/Users/prateek/workspace/spring-boot/resume-management/src/main/java/com/elasticdemo/config/FileConfig.java
+/Users/prateek/workspace/spring-boot/resume-management/src/main/java/com/elasticdemo/config/ElasticSearchConfig.java
+/Users/prateek/workspace/spring-boot/resume-management/src/main/java/com/elasticdemo/service/ElasticSearchService.java
+/Users/prateek/workspace/spring-boot/resume-management/src/main/java/com/elasticdemo/MyWebApplication.java
+/Users/prateek/workspace/spring-boot/resume-management/src/main/java/com/elasticdemo/repository/FileRepository.java
+/Users/prateek/workspace/spring-boot/resume-management/src/main/java/com/elasticdemo/model/FileContent.java
+/Users/prateek/workspace/spring-boot/resume-management/src/main/java/com/elasticdemo/model/UploadFileResponse.java
+/Users/prateek/workspace/spring-boot/resume-management/src/main/java/com/elasticdemo/model/SearchRequest.java
+/Users/prateek/workspace/spring-boot/resume-management/src/main/java/com/elasticdemo/controller/FileController.java
+/Users/prateek/workspace/spring-boot/resume-management/src/main/java/com/elasticdemo/service/FileContentIndexer.java

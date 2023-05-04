@@ -1,10 +1,7 @@
 package com.elasticdemo.controller;
 
 
-import com.elasticdemo.model.FileContent;
-import com.elasticdemo.model.FileModel;
-import com.elasticdemo.model.SearchRequest;
-import com.elasticdemo.model.UploadFileResponse;
+import com.elasticdemo.model.*;
 import com.elasticdemo.service.ElasticSearchService;
 import com.elasticdemo.service.FileContentIndexer;
 import com.elasticdemo.service.FileStorageService;
@@ -25,7 +22,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@CrossOrigin
 @RestController
 public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
@@ -37,15 +34,18 @@ public class FileController {
     @Autowired
     private ElasticSearchService elasticSearchService;
 
-    @PostMapping("/uploadFile")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+    @PostMapping("/upload")
+    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file,@RequestParam(value = "BUSP",required = false) String businessProcess) throws IOException {
         String fileName = fileStorageService.storeFile(file);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(fileName)
                 .toUriString();
         File file1 = new File("/Users/prateek/resumes/"+fileName);
-        fileContentIndexer.indexFile(file1, "files", fileDownloadUri);
+        Keywords keywords = new Keywords();
+        keywords.setBusinessProcess(businessProcess);
+        keywords.setDownloadUrl(fileDownloadUri);
+        fileContentIndexer.indexFile(file1, "files",keywords );
         return new UploadFileResponse(fileName, fileDownloadUri,
                 file.getContentType(), file.getSize());
     }
@@ -62,7 +62,7 @@ public class FileController {
                 .stream()
                 .map(file -> {
                     try {
-                        return uploadFile(file);
+                        return uploadFile(file,"test");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

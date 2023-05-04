@@ -1,5 +1,6 @@
 package com.elasticdemo.service;
 
+import com.elasticdemo.config.ElasticSearchConfig;
 import com.elasticdemo.model.FileContent;
 import com.elasticdemo.model.FileModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +21,7 @@ import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -28,18 +30,35 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
+
 @Service
 public class ElasticSearchService {
+
+    @Autowired
+    private ElasticSearchConfig elasticSearchConfig;
 
     @Autowired
     private RestHighLevelClient client;
 
     public List<FileModel> searchDocuments(String indexName, String searchQuery) throws IOException {
+
+
         SearchRequest searchRequest = new SearchRequest(indexName);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        String query = searchQuery;
+        if(StringUtils.hasText(searchQuery)){
+            String result = findResumeKeyWords(searchQuery);
+            if(StringUtils.hasText(result)){
+                query=result;
+            }
+        }
+
 
         // build the search query
-        searchSourceBuilder.query(QueryBuilders.queryStringQuery(searchQuery));
+        searchSourceBuilder.query(QueryBuilders.queryStringQuery(query));
+        //searchSourceBuilder.query(matchQuery(searchQuery));
+
         searchSourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
 
        /* // set highlighting options
@@ -95,7 +114,15 @@ public class ElasticSearchService {
             }
         };
 
-        client.indexAsync(request,RequestOptions.DEFAULT, listener);
+        client.indexAsync(request, RequestOptions.DEFAULT, listener);
+    }
+
+    private String findResumeKeyWords(String value) {
+
+        List<String> resumeKeyWords = elasticSearchConfig.resumeKeyDictionary();
+        String matchResult = resumeKeyWords.stream().filter(keyword -> keyword.toUpperCase().contains(value.toUpperCase())).findAny().get();
+        return matchResult.toUpperCase();
+
     }
 }
 

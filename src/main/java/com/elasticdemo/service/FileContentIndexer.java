@@ -1,6 +1,7 @@
 package com.elasticdemo.service;
 
 import com.elasticdemo.model.FileContent;
+import com.elasticdemo.model.Keywords;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,15 @@ public class FileContentIndexer {
     @Autowired
     private ElasticSearchService elasticSearchService;
 
-    public void indexFile(File file, String indexName, String downloadUrl) throws IOException {
+    public void indexFile(File file, String indexName, Keywords keywords) throws IOException {
         String content = pdfContent(file);
         // create FileContent object
         FileContent fileContent = new FileContent();
         fileContent.setId(file.getName());
         fileContent.setName(file.getName());
         fileContent.setContent(content);
-        fileContent.setDownloadUrl(downloadUrl);
+        fileContent.setDownloadUrl(keywords.getDownloadUrl());
+        fileContent.setBusinessProcess(keywords.getBusinessProcess());
 
         // create index
         elasticSearchService.createIndex(fileContent, indexName);

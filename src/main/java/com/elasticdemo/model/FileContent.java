@@ -5,7 +5,17 @@ public class FileContent {
     private String name;
     private String content;
 
+    private String businessProcess;
+
     private String downloadUrl;
+
+    public String getBusinessProcess() {
+        return businessProcess;
+    }
+
+    public void setBusinessProcess(String businessProcess) {
+        this.businessProcess = businessProcess;
+    }
 
     public String getDownloadUrl() {
         return downloadUrl;
